@@ -22,6 +22,6 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents)
 
   def showIPAddress = Action { implicit request: Request[AnyContent] =>
     val ipAddress = request.remoteAddress
-    Ok(views.html.index(ipAddress))
+    Ok(views.html.index(request.headers.toString()))
   }
 }
