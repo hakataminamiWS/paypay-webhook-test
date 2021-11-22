@@ -4,15 +4,17 @@
 # ~~~~
 
 # An example controller showing a sample home page
-GET     /                                       controllers.HomeController.index()
+GET     /                                            controllers.HomeController.index()
 
 # show ip address
-GET     /show-ip-address                        controllers.HomeController.showIPAddress
+GET     /show-ip-address                             controllers.HomeController.showIPAddress
 
 # paypay transaction event webhook
-GET    /paypay-transaction-event-webhook       controllers.HomeController.paypayTransactionEventWebhook
 + nocsrf
-POST   /paypay-transaction-event-webhook       controllers.HomeController.paypayTransactionEventWebhook
+POST   /paypay-transaction-event-webhook             controllers.HomeController.paypayTransactionEventWebhook
+# paypay recon file create event webhook
++ nocsrf
+POST   /paypay-recon-file-create-event-webhook       controllers.HomeController.paypayReconFileCreateEventWebhook
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file                           controllers.Assets.versioned(path="/public", file: Asset)
