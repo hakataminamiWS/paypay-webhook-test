@@ -28,7 +28,7 @@ class HomeController @Inject() (
     val whiteList = config.getOptional[Seq[String]]("paypay.webhook.ip.whitelists")
     val clientIP = request.headers
       .get(HeaderNames.X_FORWARDED_FOR)
-      .map(_.split(',').toList.last)
+      .map(_.split("\\s*,\\s*").toList.last)
       .getOrElse(request.remoteAddress)
 
     whiteList.filter(_.contains(clientIP)) match {
