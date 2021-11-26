@@ -25,13 +25,14 @@ class HomeController @Inject() (
   }
 
   def ipWhileList[A](action: Action[A]) = Action.async(action.parser) { request =>
-    // val whiteList = List("0:0:0:0:0:0:0:1")
     val whiteList = config.getOptional[Seq[String]]("paypay.webhook.ip.whitelists")
-    val clientIP = request.headers
-      .get(HeaderNames.X_FORWARDED_FOR)
-      .map(_.split(',').toList.last)
-      .getOrElse(request.remoteAddress)
+    // val clientIP = request.headers
+    //   .get(HeaderNames.X_FORWARDED_FOR)
+    //   .map(_.split(',').toList.last)
+    //   .getOrElse(request.remoteAddress)
 
+    val clientIP = request.remoteAddress
+    println(clientIP)
     whiteList.filter(_.contains(clientIP)) match {
       case Some(_) => action(request)
       case None    => Future.successful(Forbidden("Request not allowed"))
