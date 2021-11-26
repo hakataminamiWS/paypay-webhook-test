@@ -32,7 +32,7 @@ class HomeController @Inject() (
     //   .getOrElse(request.remoteAddress)
 
     val clientIP = request.remoteAddress
-    println(clientIP)
+    println(request.headers.get(HeaderNames.X_FORWARDED_FOR))
     whiteList.filter(_.contains(clientIP)) match {
       case Some(_) => action(request)
       case None    => Future.successful(Forbidden("Request not allowed"))
